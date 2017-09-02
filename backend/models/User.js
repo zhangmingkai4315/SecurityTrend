@@ -1,10 +1,12 @@
 'use strict';
 const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
+const jwt = require('jsonwebtoken');
+
 const utils = require('../utils')
 const config = require('../config');
-const jwt = require('jsonwebtoken');
 const sequelize = require('../db');
+
 const User = sequelize.define('users', {
     email: {
       type: Sequelize.STRING(60),

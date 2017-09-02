@@ -9,7 +9,7 @@ router.get('/', (req, res, next)=> {
         if(users){
           res.json(utils.dataJsonObject(users));
         }else{
-          res.send(401, utils.notFoundJsonObject())
+          res.send(404, utils.notFoundJsonObject())
         }
       })
       .catch(function(error){
@@ -24,7 +24,7 @@ router.get('/:id', (req, res, next) => {
       if (users) {
         res.json(utils.dataJsonObject(users));
       } else {
-        res.send(401, utils.notFoundJsonObject())
+        res.send(404, utils.notFoundJsonObject())
       }
     })
     .catch(function (error) {
@@ -43,12 +43,21 @@ router.post('/',(req,res,next)=>{
   }
   User.create({'email':email,'password':password})
       .then(function(user){
-        res.status(201).json(utils.dataJsonObject({message:'create user success',user:user}))
-        return
+        return user.generateToken()
+      }).then((token)=>{
+        res.status(201).json(utils.customJsonObject({
+          message: 'create user success',
+          token: token
+        }, null, 201))
       }).catch(function(error){
-        res.status(500).json(utils.serverFailJsonObject('create use fail'))
-
-        return
+        console.log(error)
+        if ('SequelizeUniqueConstraintError' === error.name){
+          res.status(400).json(utils.postDataNotCorrectJsonObject('email already exist'))
+        } else if ('SequelizeValidationError' === error.name){
+          res.status(400).json(utils.postDataNotCorrectJsonObject('validate error'))
+        }else{
+          res.status(500).json(utils.serverFailJsonObject('create use fail'))
+        }
       })
 })
 
