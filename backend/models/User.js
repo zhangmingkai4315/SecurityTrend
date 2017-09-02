@@ -1,89 +1,127 @@
-const Sequelize = require('sequelize')
-var bcrypt = require('bcrypt');
-const db = require('../db')
-
-const User = db.define('user',{
-    email:{
-        type:Sequelize.STRING(50),
-        allowNull: false,
-		validate: {
-			notEmpty: true,
-            isEmail: true,
-			len: [1,255]
-		}        
+'use strict';
+const bcrypt = require('bcrypt');
+const Sequelize = require('sequelize');
+const utils = require('../utils')
+const config = require('../config');
+const jwt = require('jsonwebtoken');
+const sequelize = require('../db');
+const User = sequelize.define('users', {
+    email: {
+      type: Sequelize.STRING(60),
+      unique: true,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg:'email can not be empty'
+        },
+        isEmail: {
+          msg:'email is not valid'
+        },
+        len: [1, 255]
+      }  
     },
-	username: {
-		type: Sequelize.STRING(50),
-		allowNull: false,
-		validate: {
-			notEmpty: true,
-			len: [1,50]
-		}
-	},
-
-    password:{
-        type:Sequelize.VIRTUAL,
-        allowNull:false,
-        validate:{
-            isLongEnough:function(val){
-                if(val.length < 7){
-                   throw new Error("You password is too short")
-                }
-            }
+    password: {
+      type: Sequelize.VIRTUAL,
+      allowNull: false,
+      validate: {
+        isLongEnough:  (val) => {
+          if (val.length < 7) {
+            throw new Error("You password is too short")
+          }
         }
+      }
     },
-    password_hash:{
-		type: Sequelize.STRING,
-		validate: {
-			notEmpty: true
-		}
-	},
-    create_at: Sequelize.DATE,
-    update_at: Sequelize.DATE,
-    confirmed: Sequelize.BOOLEAN,
-},{
-    freezeTableName: true,
-	indexes: [{unique: true, fields: ['email']}],
-	instanceMethods: {
-		authenticate: function(value) {
-			if (bcrypt.compareSync(value, this.password_hash))
-				return this;
-			else
-				return false;
-		}
-	}  
-});
-
-var hasSecurePassword = function(user, options, callback) {
-	if (user.password != user.password_confirmation) {
-		throw new Error("Password confirmation doesn't match Password");
-	}
-	bcrypt.hash(user.get('password'), 10, function(err, hash) {
-		if (err) return callback(err);
-		user.set('password_hash', hash);
-		return callback(null, options);
-	});
-};
-
-User.beforeCreate(function(user, options, callback) {
-	user.email = user.email.toLowerCase();
-	if (user.password){
-		hasSecurePassword(user, options, callback);
+    username: {
+      type: Sequelize.STRING(60)
+    },
+    password_hash: {
+      type: Sequelize.STRING
+    },
+    confirmed: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+      allowNull: false
+    },
+    createdAt: {
+      allowNull: false,
+      type: Sequelize.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: Sequelize.DATE
     }
-	else{
-		return callback(null, options);
+  },{
+  hooks:{
+      beforeCreate:function (user) {
+        return new Promise((resolve,reject)=>{
+          user.email = user.email.toLowerCase();
+          if (user.password) {
+            bcrypt.hash(user.get('password'), 10, (err, hash)=> {
+              if (err) {
+                reject(err)
+              }
+              user.password_hash = hash;
+              resolve()
+            });
+          }
+        })
+      }
     }
 });
+User.associate = (models) => {
+    // associations can be defined here
+}
 
-User.beforeUpdate(function(user, options, callback) {
-	user.email = user.email.toLowerCase();
-	if (user.password){
-        user.update_at = new Date();
-		hasSecurePassword(user, options, callback);
-    }else{
-		return callback(null, options);
-    }
-})
+User.prototype.authenticate= function(password){
+  const that = this
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, that.password_hash, function (err, res){
+      if(res == true){
+        return resolve(that); 
+      }else{
+        return reject(utils.forbiddenJsonObject('password is not correct'));
+      }
+    })
+  })
+}
 
+User.prototype.generateToken = (data) => {
+  return new Promise((resolve, reject) => {
+    jwt.sign({
+      exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) * config['token_exp'],
+      data: data
+    }, config['secret'], (err, token) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(token)
+      }
+    });
+  })
+}
+User.prototype.changePassword =function (password) {
+  return new Promise((resolve, reject) => {
+    this.set('update_at', new Date());
+    bcrypt.hash(password, 10, (err, hash) => {
+      if (err) {
+        reject(err)
+      }
+      this.set('password_hash', hash);
+      this.save()
+          .then(()=>resolve())
+          .catch((err)=>reject(err))
+    });
+  })
+},
+User.prototype.verifyToken=(token) => {
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, config['secret'], (err, decoded) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(decoded)
+        }
+      });
+    })
+  }
 module.exports = User;
-

@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize')
-
-const sequelize = new Sequelize('security_trend','username','password',{
-    host:'localhost',
-    dialect:'mysql',
+const config = require('./config');
+const sequelize = new Sequelize(config['database'], config['username'], config['password'],{
+    host: config['hostname'],
+    dialect: config['dialect'],
     pool:{
         max:5,
         min:0,
