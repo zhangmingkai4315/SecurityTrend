@@ -1,13 +1,14 @@
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize');
 const config = require('./config');
 const sequelize = new Sequelize(config['database'], config['username'], config['password'],{
-    host: config['hostname'],
-    dialect: config['dialect'],
-    pool:{
-        max:5,
-        min:0,
-        idle:10000
-    }
+  host: config['hostname'],
+  dialect: config['dialect'],
+  pool:{
+    max:5,
+    min:0,
+    idle:10000
+  },
+  logging: config['env']==='development'? true:false
 });
 
-module.exports = sequelize
+module.exports = sequelize;

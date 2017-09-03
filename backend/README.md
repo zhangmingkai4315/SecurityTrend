@@ -12,3 +12,22 @@ GRANT all privileges ON security_trend_test.* TO 'username'@127.0.0.1;
 FLUSH PRIVILEGES;
 
 ```
+
+
+#### Test
+
+测试数据库的初始化
+
+```
+
+
+```
+
+
+
+```
+
+npm test 
+npm test:watch
+
+```
