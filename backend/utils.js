@@ -43,6 +43,7 @@ module.exports = {
   postDataNotCorrectJsonObject,
   customJsonObject,
   dataJsonObject,
+  serverFailJsonObject,
   notFoundJsonObject,
   forbiddenJsonObject,
   errorSelector

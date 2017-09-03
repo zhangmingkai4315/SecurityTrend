@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router();
 var utils = require('../utils');
 var User = require('../models/user');
+const middleware = require('../middleware');
 /* GET users listing. */
-router.get('/', (req, res)=> {
+
+router.get('/', middleware.tokenMiddleWare,(req, res)=> {
   User.findAll({},{raw:true})
     .then(function(users){
       if(users){
@@ -18,7 +20,7 @@ router.get('/', (req, res)=> {
 });
 
 /* GET users listing. */
-router.get('/:id', (req, res) => {
+router.get('/:id', middleware.tokenMiddleWare,(req, res) => {
   User.findOne({where:{id:req.params.id}}, { raw: true })
     .then(function (users) {
       if (users) {
@@ -31,9 +33,9 @@ router.get('/:id', (req, res) => {
       res.send(500, utils.serverFailJsonObject());
     });
 });
-// POST users to create a new user
+// /signup :  create a new user 
 
-router.post('/',(req,res)=>{
+router.post('/signup', (req,res)=>{
   let email = req.body.email;
   let password = req.body.password;
   let password_confirm = req.body.password_confirm;
@@ -82,7 +84,7 @@ router.post('/login', (req, res) => {
 
 // router.put()
 
-router.put('/:id', (req, res) => {
+router.put('/:id', middleware.tokenMiddleWare, (req, res) => {
   User.update(req.body,{ where: { id: req.params.id } })
     .then((data) => {
       if (data) {
@@ -96,7 +98,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.put('/:id/password', (req, res) => {
+router.put('/:id/password', middleware.tokenMiddleWare,(req, res) => {
   let old_password = req.body.old_password;
   let password = req.body.password;
   User.findOne({ where: { id: req.params.id } })
@@ -120,7 +122,7 @@ router.put('/:id/password', (req, res) => {
     });
 });
 
-router.delete('/:id',(req,res)=>{
+router.delete('/:id', middleware.tokenMiddleWare, (req,res)=>{
   User.destroy({where:{id:req.params.id}})
     .then((data)=>{
       if(data){
