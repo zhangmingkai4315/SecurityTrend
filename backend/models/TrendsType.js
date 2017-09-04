@@ -5,6 +5,7 @@ const TrendsType = sequelize.define('trends_type', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique:true,
     validate: {
       notEmpty: {
         msg: 'title can not be empty'

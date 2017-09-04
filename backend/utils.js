@@ -23,19 +23,19 @@ const forbiddenJsonObject =(message) => {
 const errorSelector = (error,res)=>{
   switch(error.name){
   case 'create':
-    res.status(201).json(customJsonObject(error.data || 'success',null,201));
+    res.status(201).json(customJsonObject(error.data || 'Create data success',null,201));
     break;
   case 'noerror':
-    res.status(200).json(dataJsonObject(error.data||'success'));
+    res.status(200).json(dataJsonObject(error.data||'Api request success'));
     break;
   case 'SequelizeUniqueConstraintError':
-    res.status(400).json(postDataNotCorrectJsonObject(error.message));
+    res.status(400).json(postDataNotCorrectJsonObject('Unique validation error'));
     break;
   case 'SequelizeValidationError':
-    res.status(400).json(postDataNotCorrectJsonObject(error.message));
+    res.status(400).json(postDataNotCorrectJsonObject('Data validation error'));
     break;
   default:
-    res.status(500).json(serverFailJsonObject(error.message||'api request fail'));
+    res.status(500).json(serverFailJsonObject(error.message||'Api request fail'));
   }
 };
 
