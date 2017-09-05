@@ -8,7 +8,7 @@ const TrendsType = sequelize.define('trends_type', {
     unique:true,
     validate: {
       notEmpty: {
-        msg: 'title can not be empty'
+        msg: __("Trends type's title can not be empty")
       },
       len: [1, 255]
     }

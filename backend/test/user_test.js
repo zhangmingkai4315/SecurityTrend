@@ -50,7 +50,7 @@ describe('user unit test', () => {
       .expect(400)
       .end((err, res) => {
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal('the confirmed password not equal to the password');
+        expect(res.body.error).to.equal(__('The confirmed password not equal to the password'));
         expect(res.body).to.have.property('code');
         done();
       });
@@ -134,7 +134,7 @@ describe('user unit test', () => {
       .expect(404)
       .end((err, res) => {
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal('not found');
+        expect(res.body.error).to.equal(__('Not found'));
         done();
       });
   }); 
@@ -148,7 +148,7 @@ describe('user unit test', () => {
       .expect(200)
       .end((err, res) => {
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.equal('update success');
+        expect(res.body.data).to.equal(__('Update success'));
         done();
       });
   });
@@ -178,7 +178,7 @@ describe('user unit test', () => {
       .expect(401)
       .end((err, res) => {
         expect(res.body).to.have.property('error');
-        expect(res.body.error).to.equal('password is not correct');
+        expect(res.body.error).to.equal(__('Password is not correct'));
         done();
       });
   });
@@ -192,7 +192,7 @@ describe('user unit test', () => {
       .expect(200)
       .end((err, res) => {
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.equal('change password success');
+        expect(res.body.data).to.equal(__('Change password success'));
         done();
       });
   });
@@ -204,7 +204,7 @@ describe('user unit test', () => {
       .expect('Content-type', /json/)
       .expect(403)
       .end((err, res) => {
-        expect(res.body.error).to.equal('password is not correct');
+        expect(res.body.error).to.equal(__('Password is not correct'));
         done();
       });
   });
@@ -232,7 +232,7 @@ describe('user unit test', () => {
       .expect(200)
       .end((err, res) => {
         expect(res.body).to.have.property('data');
-        expect(res.body.data).to.equal('delete success');
+        expect(res.body.data).to.equal(__('Delete success'));
         done();
       });
   });
@@ -244,7 +244,7 @@ describe('user unit test', () => {
       .expect('Content-type', /json/)
       .expect(404)
       .end((err, res) => {
-        expect(res.body.error).to.equal('not found');
+        expect(res.body.error).to.equal(__('Not found'));
         done();
       });
   });

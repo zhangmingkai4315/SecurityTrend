@@ -1,0 +1,29 @@
+{
+    "Token not exist":"Token不存在,请确认后重新发送",
+    "Token has expired":"您的Token已过期，请重新申请",
+    "Token decode fail":"Token解码失败，请重新申请",
+
+    "Trends title can not be empty":"Trends标题不能为空",
+    "Trends type's title can not be empty":"Trends类别名称不能为空",
+    "Email can not be empty":"email地址不能为空",
+    "Email is not valid":"email格式不正确，请重新输入",
+    "You password is too short":"密码长度不能小于8位",
+    "Password is not correct":"输入密码不正确",
+    "Create trend type success":"创建新的trend类型成功",
+    "Update success":"更新数据成功",
+    "Delete success":"删除数据成功",
+    "Change password success":"密码修改成功",
+    "User not exist":"用户无法找到",
+    "Create user success":"创建新用户成功",
+    "The confirmed password not equal to the password":"两次输入密码不一致",
+
+    "Not found":"资源无法找到",
+    "Resource access forbidden":"资源无法访问，请确认权限",
+    "Create data success":"创建数据成功",
+    "Api request success":"Api请求已成功处理",
+    "Unique validation error":"数据已存在无法重新创建相同的条目",
+    "Data validation error":"数据验证失效，请重新确认后提交",
+    "Api request fail":"Api请求执行失败，请稍后再试"
+
+
+}

@@ -38,12 +38,12 @@ router.post('/', (req, res) => {
   if(name){
     TrendsType.create({name,description,img_url})
     .then(function(){
-      return res.json(utils.customJsonObject('create trend type success',null,201));
+      return res.json(utils.customJsonObject(__('Create trend type success'),null,201));
     }).catch(function(error){
       utils.errorSelector(error,res);
     });
   }else{
-    return res.json(utils.postDataNotCorrectJsonObject('name not exist'));
+    return res.json(utils.postDataNotCorrectJsonObject(__('Trends title can not be empty')));
   }
 });
 
@@ -51,7 +51,7 @@ router.put('/:id', (req, res) => {
   TrendsType.update(req.body,{ where: { id: req.params.id } })
     .then((data) => {
       if (data) {
-        res.status(200).json(utils.dataJsonObject('update success'));
+        res.status(200).json(utils.dataJsonObject(__('Update success')));
       } else {
         res.status(404).json(utils.notFoundJsonObject());
       }
@@ -65,7 +65,7 @@ router.delete('/:id', (req, res) => {
   TrendsType.destroy({where:{id:req.params.id}})
     .then((data)=>{
       if(data){
-        res.status(200).json(utils.dataJsonObject('delete success'));
+        res.status(200).json(utils.dataJsonObject(__('Delete success')));
       }else{
         res.status(404).json(utils.notFoundJsonObject());
       }

@@ -4,6 +4,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var i18n = require("i18n");
+i18n.configure({
+  locales:['en','zh'],
+  queryParameter: 'lang',
+  defaultLocale: 'en',
+  register: global,
+  directory: __dirname + '/locales'
+});
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 var trends = require('./routes/trends');
@@ -35,6 +44,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(i18n.init);
 
 app.use('/', index);
 app.use('/users', users);

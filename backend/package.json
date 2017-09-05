@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test:init":"export NODE_ENV=test ; ./node_modules/.bin/sequelize db:migrate",
+    "test:init": "export NODE_ENV=test ; ./node_modules/.bin/sequelize db:migrate",
     "test": "export NODE_ENV=test ;./node_modules/.bin/mocha",
-    "test:watch":"export NODE_ENV=test ; ./node_modules/.bin/mocha -w",
-    "migrate":"./node_modules/.bin/sequelize db:migrate",
-    "migrate:test":"export NODE_ENV=test ;./node_modules/.bin/sequelize db:migrate"
+    "test:watch": "export NODE_ENV=test ; ./node_modules/.bin/mocha -w",
+    "migrate": "./node_modules/.bin/sequelize db:migrate",
+    "migrate:test": "export NODE_ENV=test ;./node_modules/.bin/sequelize db:migrate"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
@@ -18,6 +18,7 @@
     "cors": "^2.8.4",
     "debug": "~2.6.3",
     "express": "~4.15.2",
+    "i18n": "^0.8.3",
     "jade": "~1.11.0",
     "jsonwebtoken": "^7.4.3",
     "lodash": "^4.17.4",

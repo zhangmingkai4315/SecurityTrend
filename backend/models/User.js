@@ -14,10 +14,10 @@ const User = sequelize.define('users', {
     allowNull: false,
     validate: {
       notEmpty: {
-        msg:'email can not be empty'
+        msg:__('Email can not be empty')
       },
       isEmail: {
-        msg:'email is not valid'
+        msg:__('Email is not valid')
       },
       len: [1, 255]
     }  
@@ -28,7 +28,7 @@ const User = sequelize.define('users', {
     validate: {
       isLongEnough:  (val) => {
         if (val.length < 7) {
-          throw new Error('You password is too short');
+          throw new Error(__('You password is too short'));
         }
       }
     }
@@ -78,7 +78,7 @@ User.prototype.authenticate= function(password){
       if(res == true){
         return resolve(that); 
       }else{
-        return reject(utils.forbiddenJsonObject('password is not correct'));
+        return reject(utils.forbiddenJsonObject(__('Password is not correct')));
       }
     });
   });

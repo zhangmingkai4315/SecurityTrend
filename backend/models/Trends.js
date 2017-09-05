@@ -8,7 +8,7 @@ const Trends = sequelize.define('trends', {
     allowNull: false,
     validate: {
       notEmpty: {
-        msg: 'title can not be empty'
+        msg: __('Trends title can not be empty')
       },
       len: [1, 255]
     }  

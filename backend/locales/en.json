@@ -1,0 +1,26 @@
+{
+	"Token not exist": "Token not exist",
+	"Token has expired": "Token has expired",
+	"Token decode fail": "Token decode fail",
+	"Trends title can not be empty": "Trends title can not be empty",
+	"Trends type's title can not be empty": "Trends type's title can not be empty",
+	"Email can not be empty": "Email can not be empty",
+	"Email is not valid": "Email is not valid",
+    "You password is too short":"You password is too short(length>7)",
+    "Password is not correct":"Password is not correct",
+    "Create trend type success":"Create trend type success",
+    "Update success":"Update success",
+    "Delete success":"Delete success",
+    "Change password success":"Change password success",
+    "User not exist":"User not exist",
+    "Create user success":"Create user success",
+    "The confirmed password not equal to the password":"The confirmed password not equal to the password",
+    
+    "Not found":"Not found",
+    "Resource access forbidden":"Resource access forbidden",
+    "Create data success":"Create data success",
+    "Api request success":"Api request success",
+    "Unique validation error":"Unique validation error",
+    "Data validation error":"Data validation error",
+    "Api request fail":"Api request fail"
+}
