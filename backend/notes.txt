@@ -1,0 +1,3 @@
+
+alter table `trends` drop foreign key `trends_ibfk_1`;   
+alter table `trends` add constraint `trends_ibfk_1` foreign key (`type_id`) references `trends_type`(`id`) on update cascade on delete set null;

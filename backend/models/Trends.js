@@ -1,7 +1,9 @@
 'use strict';
 const Sequelize = require('sequelize');
 const sequelize = require('../db');
-const TrendsType = require('./trends_type');
+const TrendsType = require('./TrendsType');
+const __ = global.__;
+
 const Trends = sequelize.define('trends', {
   title: {
     type: Sequelize.STRING,
@@ -25,13 +27,6 @@ const Trends = sequelize.define('trends', {
   img_url: {
     type: Sequelize.STRING
   },
-  type_id: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: TrendsType,
-      key: 'id',
-    }
-  },
   createdAt: {
     allowNull: false,
     type: Sequelize.DATE
@@ -40,7 +35,6 @@ const Trends = sequelize.define('trends', {
     allowNull: false,
     type: Sequelize.DATE
   }
-});
-Trends.belongsTo(TrendsType, { foreignKey: 'type_id', as: 'Type'});
-TrendsType.hasMany(Trends);
+}, { freezeTableName: true});
+Trends.belongsTo(TrendsType, { foreignKey: 'type_id'});
 module.exports = Trends;

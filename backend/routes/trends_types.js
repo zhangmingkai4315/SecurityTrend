@@ -1,7 +1,7 @@
 var express = require('express');
 var utils = require('../utils');
 var TrendsType = require('../models/TrendsType');
-
+var __ = global.__;
 var router = express.Router();
 router.get('/', (req, res) => {
   TrendsType.findAll({}, { raw: true })
@@ -37,11 +37,11 @@ router.post('/', (req, res) => {
   let img_url = req.body.img_url||'';
   if(name){
     TrendsType.create({name,description,img_url})
-    .then(function(){
-      return res.json(utils.customJsonObject(__('Create trend type success'),null,201));
-    }).catch(function(error){
-      utils.errorSelector(error,res);
-    });
+      .then(function(){
+        return res.json(utils.customJsonObject(__('Create trend type success'),null,201));
+      }).catch(function(error){
+        utils.errorSelector(error,res);
+      });
   }else{
     return res.json(utils.postDataNotCorrectJsonObject(__('Trends title can not be empty')));
   }
