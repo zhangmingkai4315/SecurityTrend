@@ -3,6 +3,7 @@
 
 import MySQLdb
 import hashlib
+import datetime
 import time
 
 db_connection = MySQLdb.connect('127.0.0.1', 'abc', '', 'security_trend_development',use_unicode=True, charset="utf8")
@@ -46,13 +47,15 @@ def get_type_id(name):
       return None
 
 class Trends(object):
-  def __init__(self,title,short=None,content=None,type_name=None,url=None,image_url=None):
+  def __init__(self, title, short=None, content=None, type_name=None, url=None, post_date=None, image_url=None):
     self.title = title
-    self.short = short or content[:50]
+    self.short = short or (content[:200]+'...' if content>250 else content)
     self.content = content
     self.type_name = type_name
     self.url = url
     self.image_url = image_url
+    self.createdAt = post_date if post_date is not None else time.strftime(
+        '%Y-%m-%d %H:%M:%S')
     self.content_md5 = hashlib.md5(self.content.encode("utf8")).hexdigest()
   def save(self):
     if exist_content(self.content) is True:
@@ -69,22 +72,11 @@ class Trends(object):
            self.url, 
            self.image_url,
            self.content_md5,
-           time.strftime('%Y-%m-%d %H:%M:%S'), 
-           time.strftime('%Y-%m-%d %H:%M:%S')
+           self.createdAt,
+           self.createdAt
            )
       cursor.execute(sql)
       db_connection.commit()
     except Exception as e:
       print e
       db_connection.rollback()
-
-def main():
-  trends=Trends(title='test', 
-            content=u'Python处理中英文混合字符串, 每20个字符换一行, 应该如何计算呢?',
-            url='/url',
-            image_url='/image_url',
-            type_name='TEST1')
-  trends.save()
-
-if __name__ == '__main__':
-  main()
