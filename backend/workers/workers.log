@@ -1,0 +1,5 @@
+09/10/2017 09:04:37 AM INFO Start cron job
+09/10/2017 09:04:37 AM INFO Regist worker TheatPost
+09/10/2017 09:04:37 AM INFO Regist worker TheatPost success
+09/10/2017 09:04:37 AM INFO Start worker TheatPost
+09/10/2017 09:06:16 AM INFO Web Scraping done[worker:TheatPost]

@@ -1,8 +1,11 @@
-from crond import CrondJob
 import time
+import logging
+
+from crond import CrondJob
 
 class TheatPost(CrondJob):
-  
+  """ TheatPost.com web scraping class
+  """
   def __init__(self, type_name=None):
     CrondJob.__init__(self)
     if type_name is None:
@@ -20,10 +23,11 @@ class TheatPost(CrondJob):
           post['title'] = art.find('a').get_text()
           post['url'] = art.find('a').get('href')
           self.threads_posts.append(post)
-        except:
+        except Exception as e:
+          logging.error(e)
           continue
     except Exception as e:
-      print e
+      logging.error(e)
 
   def parse_each(self,post):
     if not post.has_key('url'):
@@ -43,7 +47,7 @@ class TheatPost(CrondJob):
       post["img_url"] = data.find(
           'header', attrs={'class': 'entry-header'}).find('img').get('src')
     except Exception as e:
-      print e
+      logging.error(e)
     finally:
       time.sleep(5)
       return post
