@@ -1,10 +1,23 @@
-var express = require('express');
-var utils = require('../utils');
-var Trends = require('../models/Trends');
-var __ = global.__;
-var router = express.Router();
+const express = require('express');
+const utils = require('../utils');
+const Trends = require('../models/Trends');
+const __ = global.__;
+const router = express.Router();
 router.get('/', (req, res) => {
-  Trends.findAll({}, { raw: true })
+  const page = req.query.page || 1;
+  const type_id = req.query.type_id||0;
+  Trends.findAll({
+    where:{
+      type_id: type_id === 0? {$gt: 0}:type_id ,
+    },
+    order: [
+      ['createdAt', 'DESC']
+    ],
+    limit: 10,
+    offset: (page - 1) * 10,
+  }, {
+    raw: true
+  })
     .then(function (types) {
       if (types) {
         res.json(utils.dataJsonObject(types));
