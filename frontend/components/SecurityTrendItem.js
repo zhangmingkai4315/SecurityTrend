@@ -1,8 +1,9 @@
-
-import React, { Component, PropTypes } from 'react'
-import { Text, View, TouchableWithoutFeedback } from 'react-native';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Image, Dimensions} from 'react-native';
+import { Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-
+const viewportWidth = Dimensions.get('window').width;
 class SecurityTrendItem extends Component {
   constructor(props) {
     super(props);
@@ -13,17 +14,48 @@ class SecurityTrendItem extends Component {
     console.log(this.props.trend);
   }
   render() {
+    const trend = this.props.trend;
     return (
-      <TouchableWithoutFeedback onPress={this.onPress}>
-        <View>
-          <Text>{this.props.trend.title}</Text>
-        </View>
-      </TouchableWithoutFeedback>
+      <Card style={{ flex: 0 }}>
+        <CardItem>
+          <Left>
+            <Thumbnail source={{ uri: 'Image URL' }} />
+            <Body>
+              <Text>{trend.title}</Text>
+              <Text note>April 15, 2016</Text>
+            </Body>
+          </Left>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <Image source={{ uri: trend.img_url }} style={{ flex: 1, height: 200, width: viewportWidth-50}} />
+            <Text>
+              {trend.short_description}
+            </Text>
+          </Body>
+        </CardItem>
+        <CardItem>
+          <Left>
+            <Button transparent textStyle={{ color: '#87838B' }}>
+              <Icon name="logo-github" />
+              <Text>浏览数:1203</Text>
+            </Button>
+          </Left>
+          <Right>
+            <Button small primary>
+              <Text>点击阅读</Text>
+            </Button>
+          </Right>
+        </CardItem>
+      </Card>
     );
   }
 }
 SecurityTrendItem.propTypes = {
-  trend: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  trend: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
 };
 SecurityTrendItem.defaultProps = {
   trend: {

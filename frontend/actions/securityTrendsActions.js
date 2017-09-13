@@ -1,19 +1,23 @@
 import { Actions } from 'react-native-router-flux';
 import * as Types from '../types';
 
-
-function fetchTrendsSuccess() {
+export function fetchTrendsSuccess(payload) {
   return {
     type: Types.FETCH_TRENDS_SUCCESS,
+    payload,
   };
 }
-
-export const securityTrendsFetch = () =>{
+function fetchFail(payload) {
+  return {
+    type: Types.FETCH_FAIL,
+    payload,
+  };
+}
+export const securityTrendsFetch = () => {
   return (dispatch) => {
-    firebase.database().ref(`/user/${currentUser.uid}/employees`)
-      .on('value', snapshot => {
-        console.log(snapshot)
-        dispatch(fetchTrendsSuccess(snapshot.val()));
-      });
+    fetch('http://localhost:3000/api/trends')
+      .then(response => response.json())
+      .then(data => dispatch(fetchTrendsSuccess(data.data)))
+      .catch(error => dispatch(fetchFail(error)));
   };
-}
+};

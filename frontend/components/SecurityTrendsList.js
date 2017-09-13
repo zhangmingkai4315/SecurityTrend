@@ -1,19 +1,27 @@
 // import _ from 'lodash';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ListView } from 'react-native';
-import { securityTrendsFetch } from '../actions'
+import { ListView, View} from 'react-native';
+import { securityTrendsFetch } from '../actions';
 import SecurityTrendItem from './SecurityTrendItem';
+import ProgressBar from './common/ProgressBar';
 
 class SecurityTrendsList extends Component {
-  static renderRow(data) {
-    return (
-      <SecurityTrendItem trend={data} />
-    );
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+    };
   }
   componentWillMount() {
     this.props.securityTrendsFetch();
     this.createDataSource(this.props);
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ isLoading: false });
+    }, 1000);
   }
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps);
@@ -27,10 +35,10 @@ class SecurityTrendsList extends Component {
 
   render() {
     return (
-      <ListView
+      this.state.isLoading ? <View><ProgressBar /></View> : <ListView
         dataSource={this.dataSource}
         enableEmptySections
-        renderRow={this.renderRow}
+        renderRow={rowData => <SecurityTrendItem trend={rowData} />}
       />
     );
   }

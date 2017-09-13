@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-class LoginForm extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     // 
@@ -15,4 +15,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default Login;
