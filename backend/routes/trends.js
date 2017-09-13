@@ -1,6 +1,7 @@
 const express = require('express');
 const utils = require('../utils');
 const Trends = require('../models/Trends');
+const TrendsType = require('../models/TrendsType');
 const __ = global.__;
 const router = express.Router();
 router.get('/', (req, res) => {
@@ -15,6 +16,7 @@ router.get('/', (req, res) => {
     ],
     limit: 10,
     offset: (page - 1) * 10,
+    include:[TrendsType]
   }, {
     raw: true
   })

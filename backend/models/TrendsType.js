@@ -18,7 +18,7 @@ const TrendsType = sequelize.define('trends_type', {
     type: Sequelize.STRING
   },
   img_url: {
-    type: Sequelize.TEXT
+    type: Sequelize.STRING
   }
 },{
   freezeTableName: true,

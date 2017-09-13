@@ -15,11 +15,12 @@ class SecurityTrendItem extends Component {
   }
   render() {
     const trend = this.props.trend;
+    console.log(trend)
     return (
       <Card style={{ flex: 0 }}>
         <CardItem>
           <Left>
-            <Thumbnail source={{ uri: 'Image URL' }} />
+            <Thumbnail source={{ uri: trend.trends_type.img_url }} />
             <Body>
               <Text>{trend.title}</Text>
               <Text note>April 15, 2016</Text>
