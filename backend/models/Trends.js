@@ -34,6 +34,10 @@ const Trends = sequelize.define('trends', {
   updatedAt: {
     allowNull: false,
     type: Sequelize.DATE
+  },
+  pageview:{
+    type:Sequelize.INTEGER,
+    defaultValue:0
   }
 }, { freezeTableName: true});
 Trends.belongsTo(TrendsType, { foreignKey: 'type_id'});
