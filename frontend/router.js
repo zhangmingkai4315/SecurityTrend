@@ -1,8 +1,9 @@
 import React from 'react';
-import { Scene, Router, Stack } from 'react-native-router-flux';
+import { Scene, Router, Stack, Actions} from 'react-native-router-flux';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import SecurityTrendsList from './components/SecurityTrendsList';
+import SecurityTrendDetail from './components/SecurityTrendDetail';
 
 const RouterComponent = () => {
   return (
@@ -11,8 +12,13 @@ const RouterComponent = () => {
         <Scene
           key="securityTrendsList"
           component={SecurityTrendsList}
-          title="Security Trends"
+          title="每日新闻"
         />
+        <Scene
+          key="securityTrendDetail"
+          component={SecurityTrendDetail}
+          onLeft={() => Actions.securityTrendsList() } 
+          title="新闻详情" />
         <Scene
           key="login"
           component={Login}

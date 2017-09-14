@@ -3,9 +3,9 @@ import {
   View,
   ActivityIndicator,
   StyleSheet,
-  Dimensions,
+  // Dimensions,
 } from 'react-native';
-const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   progressBar: {
     flex: 1,
