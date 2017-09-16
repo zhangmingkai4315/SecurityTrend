@@ -2,6 +2,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db');
 const TrendsType = require('./TrendsType');
+
 const __ = global.__;
 
 const Trends = sequelize.define('trends', {
@@ -41,4 +42,10 @@ const Trends = sequelize.define('trends', {
   }
 }, { freezeTableName: true});
 Trends.belongsTo(TrendsType, { foreignKey: 'type_id'});
+
+Trends.prototype.addPageView = function(){
+  this.pageview = this.pageview+1;
+  return this.save();
+};
+
 module.exports = Trends;

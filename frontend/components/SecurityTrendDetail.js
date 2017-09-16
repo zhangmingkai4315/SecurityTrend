@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   Dimensions,
@@ -14,7 +16,8 @@ import {
   Thumbnail,
   Body,
   Left } from 'native-base';
-  
+import { addTrendsPageView } from '../actions';
+
 const viewportWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   thumbnail: {
@@ -38,6 +41,9 @@ const styles = StyleSheet.create({
 });
 
 class SecurityTrendDetail extends Component {
+  componentDidMount() {
+    this.props.addTrendsPageView(this.props.trend.id);
+  }
   render() {
     const trend = this.props.trend;
     const logoImg = (trend.trends_type && trend.trends_type.img_url) || '';
@@ -55,8 +61,10 @@ class SecurityTrendDetail extends Component {
               </Left>
             </CardItem>
             <CardItem cardBody>
-              <Image source={{ uri: trend.img_url || '' }} 
-                    style={{ flex: 1, height: 200, width: viewportWidth - 50 }} />
+              <Image
+                source={{ uri: trend.img_url || '' }} 
+                style={{ flex: 1, height: 200, width: viewportWidth - 50 }} 
+              />
             </CardItem>
             <CardItem>
               <Body>
@@ -71,4 +79,19 @@ class SecurityTrendDetail extends Component {
     );
   }
 }
-export default SecurityTrendDetail;
+SecurityTrendDetail.propTypes = {
+  addTrendsPageView: PropTypes.func.isRequired,
+  trend: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
+};
+
+SecurityTrendDetail.defaultProps = {
+  trend: {
+    id: 0,
+    title: '',
+  },
+};
+
+export default connect(null, { addTrendsPageView })(SecurityTrendDetail);

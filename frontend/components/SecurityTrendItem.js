@@ -8,6 +8,7 @@ import {
   Dimensions } from 'react-native';
 import { Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+
 const viewportWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
@@ -22,15 +23,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
   },
   shortDescription: {
-    fontSize:13,
-    marginTop:10,
-    color:'black',
-    fontFamily:'Helvetica-Light'
-  }
+    fontSize: 13,
+    marginTop: 10,
+    color: 'black',
+    fontFamily: 'Helvetica-Light',
+  },
 });
-
-
-
 
 class SecurityTrendItem extends Component {
   constructor(props) {
@@ -51,7 +49,7 @@ class SecurityTrendItem extends Component {
             <Thumbnail style={styles.thumbnail} source={{ uri: logoImg }} />
             <Body>
               <Text style={styles.title}>{trend.title}</Text>
-              <Text note>{moment(trend.createdAt).fromNow()||''}</Text>
+              <Text note>{moment(trend.createdAt).fromNow() || ''}</Text>
             </Body>
           </Left>
         </CardItem>
@@ -67,7 +65,7 @@ class SecurityTrendItem extends Component {
           <Left>
             <Button transparent textStyle={{ color: '#87838B' }}>
               <Icon name="eye" />
-              <Text> 访问数量:1203</Text>
+              <Text> 访问数量:{trend.pageview}</Text>
             </Button>
           </Left>
           <Right>

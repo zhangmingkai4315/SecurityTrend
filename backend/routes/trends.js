@@ -2,6 +2,8 @@ const express = require('express');
 const utils = require('../utils');
 const Trends = require('../models/Trends');
 const TrendsType = require('../models/TrendsType');
+const errors = require('../errors');
+
 const __ = global.__;
 const router = express.Router();
 router.get('/', (req, res) => {
@@ -70,6 +72,26 @@ router.put('/:id', (req, res) => {
       }
     })
     .catch(() => {
+      res.status(500).json(utils.serverFailJsonObject());
+    });
+});
+
+router.put('/:id/pageview', (req, res) => {
+  Trends.findOne({ where: { id: req.params.id } })
+    .then( trend => {
+      if (trend) {
+        return trend.addPageView();
+      } else {
+        res.status(404).json(utils.notFoundJsonObject());
+        throw errors.StopProcessError;
+      }
+    }).then(()=>{
+      res.status(200).json(utils.dataJsonObject(__('Update success')));
+    })
+    .catch((err) => {
+      if(err.message === errors.StopProcessError.message){
+        return;
+      }
       res.status(500).json(utils.serverFailJsonObject());
     });
 });
