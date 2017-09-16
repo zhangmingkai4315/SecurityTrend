@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as Types from '../types';
 
 const INITIAL_STATE = { securityTrends: [], page: 1, listWaiting: false, error: '', full: false };
@@ -9,7 +10,8 @@ export default (state = INITIAL_STATE, action) => {
       if (action.payload.append) {
         securityTrends = [...state.securityTrends, ...action.payload.data];
       } else {
-        securityTrends = [...action.payload.data, ...state.securityTrends];
+        const newTrends = _.differenceBy(action.payload.data, state.securityTrends,'id')
+        securityTrends = [...newTrends, ...state.securityTrends];
       }
       return {
         ...state,

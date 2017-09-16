@@ -41,7 +41,7 @@ class SecurityTrendsList extends Component {
   }
   createDataSource({ securityTrends }) {
     const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
+      rowHasChanged: (r1, r2) => r1.id !== r2.id,
     });
     this.dataSource = ds.cloneWithRows(securityTrends.securityTrends);
   }
