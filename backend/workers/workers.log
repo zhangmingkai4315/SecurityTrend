@@ -3,3 +3,8 @@
 09/10/2017 09:04:37 AM INFO Regist worker TheatPost success
 09/10/2017 09:04:37 AM INFO Start worker TheatPost
 09/10/2017 09:06:16 AM INFO Web Scraping done[worker:TheatPost]
+09/17/2017 07:49:58 PM INFO Start cron job
+09/17/2017 07:49:58 PM INFO Regist worker TheatPost
+09/17/2017 07:49:58 PM INFO Regist worker TheatPost success
+09/17/2017 07:49:58 PM INFO Start worker TheatPost
+09/17/2017 07:51:49 PM INFO Web Scraping done[worker:TheatPost]

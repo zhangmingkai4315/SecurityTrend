@@ -18,13 +18,13 @@ export default (state = INITIAL_STATE, action) => {
         page,
         full: (action.payload.data.length === 0),
         securityTrends,
-        listWaiting: true,
+        listWaiting: false,
       };
     }
     case Types.FETCH_TRENDS_START:
       return { ...state, listWaiting: true };
     case Types.FETCH_TRENDS_FAIL:
-      return { ...state, listWaiting: true, error: '获取新消息失败' };
+      return { ...state, listWaiting: false, error: '获取新消息失败' };
     case Types.UPDATE_PAGE_VIEW_SUCCESS:
       return { ...state,
         securityTrends: state.securityTrends.map((trend) => {

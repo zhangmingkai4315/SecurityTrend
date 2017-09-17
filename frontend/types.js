@@ -9,3 +9,6 @@ export const FETCH_FAIL = 'FETCH_FAIL';
 
 export const UPDATE_PAGE_VIEW_SUCCESS = 'UPDATE_PAGE_VIEW_SUCCESS';
 export const UPDATE_PAGE_VIEW_FAIL = 'UPDATE_PAGE_VIEW_FAIL';
+
+// Setting Data Types
+export const SWITCH_TAB_NUMBER = 'SWITCH_TAB_NUMBER';

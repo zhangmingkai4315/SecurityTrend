@@ -6,6 +6,7 @@ import ReduxThunk from 'redux-thunk';
 import logger from 'redux-logger';
 import reducers from './reducers';
 import Router from './router';
+import FooterTabComponent from './components/FooterTabComponent';
 
 class App extends Component {
   componentWillMount() {
@@ -16,6 +17,7 @@ class App extends Component {
       <Provider store={store}>
         <View style={{ flex: 1 }}>
           <Router />
+          <FooterTabComponent />
         </View>
       </Provider>
     );

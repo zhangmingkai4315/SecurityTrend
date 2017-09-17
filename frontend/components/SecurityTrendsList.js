@@ -43,7 +43,7 @@ class SecurityTrendsList extends Component {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1.id !== r2.id,
     });
-    this.dataSource = ds.cloneWithRows(securityTrends.securityTrends);
+    this.dataSource = ds.cloneWithRows(securityTrends);
   }
   renderFooter() {
     if (this.props.listWaiting) {
@@ -75,10 +75,13 @@ SecurityTrendsList.defaultProps = {
   listWaiting: false,
 };
 
-const mapStateToProps = ({ securityTrends, listWaiting, error }) => ({
-  securityTrends,
-  listWaiting,
-  error,
-});
+const mapStateToProps = (state) => {
+  const { securityTrends, listWaiting, error } = state.securityTrends;
+  return {
+    securityTrends,
+    listWaiting,
+    error,
+  };
+};
 
 export default connect(mapStateToProps, { securityTrendsFetch })(SecurityTrendsList);
