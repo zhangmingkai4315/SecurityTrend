@@ -4,6 +4,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import SecurityTrendsList from './components/SecurityTrendsList';
 import SecurityTrendDetail from './components/SecurityTrendDetail';
+import AboutMe from './components/AboutMe';
 
 const RouterComponent = () => {
   return (
@@ -19,6 +20,10 @@ const RouterComponent = () => {
           component={SecurityTrendDetail}
           onLeft={() => Actions.securityTrendsList() } 
           title="新闻详情" />
+        <Scene
+          key="aboutme"
+          component={AboutMe}
+          title="我的主页" />
         <Scene
           key="login"
           component={Login}
