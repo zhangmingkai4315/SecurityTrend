@@ -1,4 +1,10 @@
 {
   "name": "SecurityTrend",
-  "displayName": "SecurityTrend"
+  "displayName": "SecurityTrend",
+  "expo": {
+    "name": "SecurityTrend",
+    "slug": "SecurityTrend",
+    "sdkVersion": "20.0.0",
+    "privacy": "public"
+  }
 }

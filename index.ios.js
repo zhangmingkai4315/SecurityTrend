@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import expo from 'expo'
 import {
   AppRegistry,
 } from 'react-native';
